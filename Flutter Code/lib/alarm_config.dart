@@ -28,7 +28,7 @@ class _alarm_configPage extends State<alarm_configPage> {
   var is_Checked = false;
   var is_Checked2 = false;
   var is_Checked3 = false;
-  var pop = '상단';
+  var wd = '상단';
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -186,19 +186,29 @@ class _alarm_configPage extends State<alarm_configPage> {
                           ),
 
                           new DropdownButton<String>(
-                            onChanged: popupButtonSelected,
-                            value: pop,
+                            value: wd,
+                            onChanged: (val) {
+                              setState(() {
+                                wd = val;
+                              });},
+
                             style: new TextStyle(fontSize: 28.0,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w300,
                                 fontFamily: "Roboto"),
-                            items: <DropdownMenuItem<String>>[
-                              const DropdownMenuItem<String>(value: "상단",
-                                  child: const Text("상단")),
-                              const DropdownMenuItem<String>(value: "중앙",
-                                  child: const Text("중앙")),
-                              const DropdownMenuItem<String>(value: "하단",
-                                  child: const Text("하단")),
+                            items: [
+                              DropdownMenuItem(
+                                child: Text('상단'),
+                                value: '상단',
+                              ),
+                              DropdownMenuItem(
+                                child: Text('중앙'),
+                                value: '중앙',
+                              ),
+                              DropdownMenuItem(
+                                child: Text('하단'),
+                                value: '하단',
+                              ),
                             ],
                           )
                         ]
@@ -219,5 +229,4 @@ class _alarm_configPage extends State<alarm_configPage> {
   }
 
 
-  void popupButtonSelected(String value) {}
 }
