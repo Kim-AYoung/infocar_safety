@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'alarm_config.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+class drivestyle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +14,18 @@ class MyApp extends StatelessWidget {
         accentColor: const Color(0xff030F2A),
         canvasColor: const Color(0xff030F2A),
       ),
-      home: new MyHomePage(),
+      home: new drivestylePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class drivestylePage extends StatefulWidget {
+  drivestylePage({Key key}) : super(key: key);
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _drivestylePage createState() => new _drivestylePage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _drivestylePage extends State<drivestylePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -78,7 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                     ),
 
-                    new FlatButton(key:null, onPressed:buttonPressed,
+                    new FlatButton(key:null, onPressed:(){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> alarm_config()));
+                    },
                         child:
                         new Text(
                           "알림설정",
@@ -97,13 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Image.asset('images/image3.jpg'))
             ]
         ),
-
         padding: const EdgeInsets.all(0.0),
         alignment: Alignment.center,
       ),
 
     );
   }
-  void buttonPressed(){}
 
 }

@@ -1,38 +1,35 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(new MyApp());
-}
-class MyApp extends StatelessWidget {
+
+class alarm_config extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Generated App',
       theme: new ThemeData(
-          primarySwatch: Colors.blue,
-          primaryColor: const Color(0xFF2196f3),
-          accentColor: const Color(0xFF2196f3),
+          primaryColor: const Color(0xff030F2A),
+          accentColor: const Color(0xff030F2A),
           canvasColor: const Color(0xff030F2A)
       ),
-      home: new MyHomePage(),
+      home: new alarm_configPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+class alarm_configPage extends StatefulWidget {
+  alarm_configPage({Key key}) : super(key: key);
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _alarm_configPage createState() => new _alarm_configPage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _alarm_configPage extends State<alarm_configPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('알람 설정'
-            ,style: new TextStyle(fontSize:25.0,),),
+          ,style: new TextStyle(fontSize:25.0,),),
 
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -68,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 fontFamily: "Roboto"),
                           ),
 
-                          new Switch(onChanged: switchChanged, value:true)
+                          new Switch(onChanged: switchChanged, value:true, activeColor: Colors.blue)
                         ]
 
                     ),
@@ -86,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 fontFamily: "Roboto"),
                           ),
 
-                          new Switch(onChanged: switchChanged, value:true)
+                          new Switch(onChanged: switchChanged, value:true, activeColor: Colors.blue)
                         ]
 
                     ),
@@ -104,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 fontFamily: "Roboto"),
                           ),
 
-                          new Switch(onChanged: switchChanged, value:true)
+                          new Switch(onChanged: switchChanged, value:true, activeColor: Colors.blue)
                         ]
 
                     ),
