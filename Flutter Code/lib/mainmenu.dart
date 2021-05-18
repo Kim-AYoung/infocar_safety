@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         Container(
           child: Center(child: Text(left, style: TextStyle(fontSize: 23.0, color: Colors.white),),),
           width: 205,
-          height: 168, //150.8
+          height: 150.8,
           decoration: BoxDecoration(
             color: PrimaryColor,
             border: Border.all(
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         Container(
           child: Center(child: Text(right, style: TextStyle(fontSize: 23.0, color: Colors.white),),),
           width: 205,
-          height: 168,
+          height: 150.8,
           decoration: BoxDecoration(
               color: PrimaryColor,
               border: Border.all(
