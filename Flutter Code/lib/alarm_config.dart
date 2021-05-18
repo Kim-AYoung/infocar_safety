@@ -25,17 +25,22 @@ class alarm_configPage extends StatefulWidget {
 }
 
 class _alarm_configPage extends State<alarm_configPage> {
+  var is_Checked = false;
+  var is_Checked2 = false;
+  var is_Checked3 = false;
+  var pop = '상단';
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('알람 설정'
-          ,style: new TextStyle(fontSize:25.0,),),
+          , style: new TextStyle(fontSize: 25.0,),),
 
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> drivestyle()));
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => drivestyle()));
           },
         ),
       ),
@@ -60,13 +65,26 @@ class _alarm_configPage extends State<alarm_configPage> {
                         children: <Widget>[
                           new Text(
                             "알람                      ",
-                            style: new TextStyle(fontSize:28.0,
+                            style: new TextStyle(fontSize: 28.0,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
                           ),
 
-                          new Switch(onChanged: switchChanged, value:true, activeColor: Colors.blue)
+                          new Switch(value: is_Checked,
+                              onChanged: (value) {
+
+                                setState(() {
+                                  is_Checked = value;
+                                  if(is_Checked == false){
+                                    is_Checked2=false;
+                                    is_Checked3=false;
+                                  }
+                                }
+                                );},
+                              activeColor: Colors.blue,
+                              inactiveTrackColor: Colors.grey,
+                          )
                         ]
 
                     ),
@@ -78,13 +96,22 @@ class _alarm_configPage extends State<alarm_configPage> {
                         children: <Widget>[
                           new Text(
                             "    소리                  ",
-                            style: new TextStyle(fontSize:25.0,
+                            style: new TextStyle(fontSize: 25.0,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
                           ),
 
-                          new Switch(onChanged: switchChanged, value:true, activeColor: Colors.blue)
+                          new Switch(value: is_Checked2,
+                              onChanged: (value) {
+                                setState(() {
+                                  is_Checked2 = value;
+                                  if(is_Checked == false){
+                                    is_Checked2 = false;
+                                  }
+                                });},
+                              activeColor: Colors.blue,
+                              inactiveTrackColor: Colors.grey)
                         ]
 
                     ),
@@ -96,13 +123,23 @@ class _alarm_configPage extends State<alarm_configPage> {
                         children: <Widget>[
                           new Text(
                             "    진동                  ",
-                            style: new TextStyle(fontSize:25.0,
+                            style: new TextStyle(fontSize: 25.0,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
                           ),
 
-                          new Switch(onChanged: switchChanged, value:true, activeColor: Colors.blue)
+                          new Switch(value: is_Checked3,
+                              onChanged: (value) {
+                                setState(() {
+                                  is_Checked3 = value;
+                                  if(is_Checked == false){
+                                    is_Checked3 = false;
+                                  }
+                                });},
+
+                              activeColor: Colors.blue,
+                              inactiveTrackColor: Colors.grey)
                         ]
 
                     ),
@@ -113,7 +150,7 @@ class _alarm_configPage extends State<alarm_configPage> {
                         children: <Widget>[
                           new Text(
                             " ",
-                            style: new TextStyle(fontSize:28.0,
+                            style: new TextStyle(fontSize: 28.0,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
@@ -127,7 +164,7 @@ class _alarm_configPage extends State<alarm_configPage> {
                         children: <Widget>[
                           new Text(
                             " ",
-                            style: new TextStyle(fontSize:28.0,
+                            style: new TextStyle(fontSize: 28.0,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
@@ -142,7 +179,7 @@ class _alarm_configPage extends State<alarm_configPage> {
                         children: <Widget>[
                           new Text(
                             "경고 팝업창위치      ",
-                            style: new TextStyle(fontSize:28.0,
+                            style: new TextStyle(fontSize: 28.0,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
@@ -150,8 +187,8 @@ class _alarm_configPage extends State<alarm_configPage> {
 
                           new DropdownButton<String>(
                             onChanged: popupButtonSelected,
-                            value: "상단",
-                            style: new TextStyle(fontSize:28.0,
+                            value: pop,
+                            style: new TextStyle(fontSize: 28.0,
                                 color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w300,
                                 fontFamily: "Roboto"),
@@ -180,8 +217,7 @@ class _alarm_configPage extends State<alarm_configPage> {
 
     );
   }
-  void switchChanged(bool value) {}
+
 
   void popupButtonSelected(String value) {}
-
 }
