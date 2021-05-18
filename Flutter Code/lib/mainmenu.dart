@@ -4,36 +4,46 @@ import 'drivestyle.dart';
 const PrimaryColor = const Color(0xff030F2A);
 
 void main() {
-  runApp(MaterialApp(
-    title: '차량 스캐너',
-    home: Scaffold(
+  runApp(mainmenu());
+}
+
+class mainmenu extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+        title: '차량 스캐너',
+        home: new mainmenuPage(),
+    );
+  }
+}
+
+class mainmenuPage extends StatefulWidget {
+  mainmenuPage({Key key}) : super(key: key);
+  @override
+  _mainmenuPage createState() => new _mainmenuPage();
+}
+
+class _mainmenuPage extends State<mainmenuPage> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
       appBar: AppBar(
-        title: Text('차량 스캐너', style: TextStyle(fontSize: 23.0, color: Colors.white),),
+        title: Text(
+          '차량 스캐너', style: TextStyle(fontSize: 23.0, color: Colors.white),),
         centerTitle: true,
         backgroundColor: PrimaryColor,
       ),
-      body: MyApp(),
-    ),
-  ));
-}
-
-
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-    return Column(
-      children: <Widget>[
-        makeRow(context, left: '모니터링', right: '차량진단'),
-        makeRow(context,left: '대시보드', right: '주행기록'),
-        makeRow(context,left: '운전스타일', right: '차량관리'),
-        makeRow(context,left: '엔진상태', right: '설정'),
-      ],
-      mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
+        children: <Widget>[
+          makeRow(context, left: '모니터링', right: '차량진단'),
+          makeRow(context, left: '대시보드', right: '주행기록'),
+          makeRow(context, left: '운전스타일', right: '차량관리'),
+          makeRow(context, left: '엔진상태', right: '설정'),
+        ],
+        mainAxisAlignment: MainAxisAlignment.center,
+      ),
     );
-
   }
+
 
   Widget makeRow(BuildContext context, {String left, String right}) {
     return Row(
@@ -46,7 +56,9 @@ class MyApp extends StatelessWidget {
                         if(left.compareTo('운전스타일')==0) {
                             Navigator.push(context, MaterialPageRoute(builder: (context)=> drivestyle()));
                         }
-                      })
+                      },
+                       color: PrimaryColor,
+                      )
                       ,
           ),
           width: 205,

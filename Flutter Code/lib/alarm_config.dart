@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'drivestyle.dart';
 
 
 class alarm_config extends StatelessWidget {
@@ -34,7 +35,7 @@ class _alarm_configPage extends State<alarm_configPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: (){
-            print('arrow_back is clicked');
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> drivestyle()));
           },
         ),
       ),

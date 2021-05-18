@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'alarm_config.dart';
+import 'mainmenu.dart';
 
 
 class drivestyle extends StatelessWidget {
@@ -32,6 +33,12 @@ class _drivestylePage extends State<drivestylePage> {
       appBar: new AppBar(
         title: new Text('운전스타일'),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> mainmenu()));
+              },
+          ),
       ),
       body:
       new Container(
