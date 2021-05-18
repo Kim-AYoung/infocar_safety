@@ -36,9 +36,9 @@ class _drivestylePage extends State<drivestylePage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> mainmenu()));
-              },
-          ),
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> mainmenu()));
+          },
+        ),
       ),
       body:
       new Container(
@@ -49,11 +49,11 @@ class _drivestylePage extends State<drivestylePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               new SizedBox(
-                  height: 250,
+                  height: 230,
                   child: Image.asset('images/image1.jpg')),
 
               new SizedBox(
-                  height: 95,
+                  height: 87,
                   child: Image.asset('images/image2.jpg')),
 
               new Row(
@@ -62,29 +62,29 @@ class _drivestylePage extends State<drivestylePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     new Container(
-                      margin: EdgeInsets.all(5),
-                      child: new Text(
-                        "통계그래프",
-                        style: new TextStyle(fontSize:12.0,
-                            color: const Color(0xFFFFFFFF),
-                            fontWeight: FontWeight.w200,
-                            fontFamily: "Roboto"),
-                      )
-                    ),
-
-                    new Container(
                         margin: EdgeInsets.all(5),
-                        child:  new Text(
-                          "경고위치",
+                        child: new Text(
+                          "통계그래프",
                           style: new TextStyle(fontSize:12.0,
                               color: const Color(0xFFFFFFFF),
                               fontWeight: FontWeight.w200,
                               fontFamily: "Roboto"),
-                        ),
+                        )
+                    ),
+
+                    new Container(
+                      margin: EdgeInsets.all(5),
+                      child:  new Text(
+                        "경고위치",
+                        style: new TextStyle(fontSize:12.0,
+                            color: const Color(0xFFFFFFFF),
+                            fontWeight: FontWeight.w200,
+                            fontFamily: "Roboto"),
+                      ),
                     ),
 
                     new FlatButton(key:null, onPressed:(){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> alarm_config()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> alarm_config()));
                     },
                         child:
                         new Text(
@@ -100,7 +100,7 @@ class _drivestylePage extends State<drivestylePage> {
               ),
 
               new SizedBox(
-                  height: 245,
+                  height: 235,
                   child: Image.asset('images/image3.jpg'))
             ]
         ),
