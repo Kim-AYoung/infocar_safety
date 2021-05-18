@@ -11,6 +11,11 @@ class mainmenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
         title: '차량 스캐너',
+        theme: new ThemeData(
+          primaryColor: const Color(0xff030F2A),
+          accentColor: const Color(0xff030F2A),
+          canvasColor: const Color(0xff030F2A)
+        ),
         home: new mainmenuPage(),
     );
   }
