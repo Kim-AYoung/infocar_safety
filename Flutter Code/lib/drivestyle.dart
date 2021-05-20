@@ -26,6 +26,11 @@ class drivestylePage extends StatefulWidget {
 }
 
 class _drivestylePage extends State<drivestylePage> {
+  var is_Check = is_Checked;
+  var sound = is_Checked2;
+  var vibration = is_Checked3;
+  var isPressed = false;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -101,29 +106,33 @@ class _drivestylePage extends State<drivestylePage> {
           alignment: Alignment.center,
         ),
         onTap: () {
-          showDialog(
-              context: context,
-              //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                Future.delayed(Duration(seconds: 3), () {
-                  Navigator.pop(context);
-                });
 
-                return AlertDialog(
-                  // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
-                  //Dialog Main Title
-                  title: Column(
-                    children: <Widget>[
-                      new Text("급가속 발생"),
+          if (is_Check == true) {
+            showDialog(
+                context: context,
+                //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  Future.delayed(Duration(seconds: 3), () {
+                    Navigator.pop(context);
+                  });
+                  return AlertDialog(
+                    // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    //Dialog Main Title
+                    title: Column(
+                      children: <Widget>[
+                        new Text("급가속 주의"),
+                      ],
+                    ),
+                    //
+                    actions: <Widget>[
+                      
                     ],
-                  ),
-                  //
-                  actions: <Widget>[],
-                );
-              });
+                  );
+                });
+          }
           ;
         },
       ),
