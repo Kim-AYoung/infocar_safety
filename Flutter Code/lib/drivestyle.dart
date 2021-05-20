@@ -111,9 +111,9 @@ class _drivestylePage extends State<drivestylePage> {
           if(position.compareTo('상단') == 0) {
             padding = const EdgeInsets.only(top: 100.0);
           }else if(position.compareTo('중앙') == 0) {
-            padding = const EdgeInsets.only(top: 400.0);
+            padding = const EdgeInsets.only(top: 270.0);
           }else if(position.compareTo('하단') == 0) {
-            padding = const EdgeInsets.only(top: 750.0);
+            padding = const EdgeInsets.only(top: 500.0);
           }
 
           if (is_Check == true) {
