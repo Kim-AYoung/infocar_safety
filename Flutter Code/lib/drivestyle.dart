@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audio_cache.dart';
-
 import 'alarm_config.dart';
 import 'mainmenu.dart';
-
-AudioCache player = new AudioCache();
+import 'package:vibration/vibration.dart';
+import 'dart:math';
+import 'package:audioplayers/audioplayers.dart';
 
 class drivestyle extends StatelessWidget {
   @override
@@ -38,6 +37,9 @@ class _drivestylePage extends State<drivestylePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final AudioCache player = AudioCache();
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('운전스타일'),
@@ -121,9 +123,16 @@ class _drivestylePage extends State<drivestylePage> {
           }
 
           if (is_Check == true) {
+            List<String> caution = ['급가속 주의', '급감속 주의', '급회전 주의'];
+            int random = Random().nextInt(3);
             if(sound == true){
               player.play('../audio/alert.wav');
-              print("click alert");
+            }
+            if (vibration == true) {
+              Vibration.vibrate(
+                  duration: 3000,
+                  pattern: [500, 1000, 2000]
+              );
             }
             showDialog(
                 context: context,
@@ -136,28 +145,25 @@ class _drivestylePage extends State<drivestylePage> {
                   });
 
                   return SingleChildScrollView(
-                    child: Padding(
-                      padding: padding,
-                      child: AlertDialog(
-                        // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)
-                        ),
-                        //Dialog Main Title
-                        title: Column(
-                          children: <Widget>[
-                            new Text("급가속 주의"),
-
-                          ],
-                        ),
-                        actions: <Widget>[],
+                      child: Padding(
+                          padding: padding,
+                          child: AlertDialog(
+                            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)
+                            ),
+                            //Dialog Main Title
+                            title: Column(
+                              children: <Widget>[
+                                new Text(caution[random]),
+                              ],
+                            ),
+                            actions: <Widget>[],
+                          )
                       )
-                    )
                   );
                 });
-
-          }
-          ;
+          };
         },
       ),
     );
