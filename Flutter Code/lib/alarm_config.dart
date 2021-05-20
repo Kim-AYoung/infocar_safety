@@ -4,6 +4,7 @@ import 'drivestyle.dart';
 var is_Checked = false;//알람
 var is_Checked2 = false;//소리
 var is_Checked3 = false;//진동
+var wd = '상단';//dropdown
 
 class alarm_config extends StatelessWidget {
   @override
@@ -30,7 +31,7 @@ class _alarm_configPage extends State<alarm_configPage> {
   //static var is_Checked = false;//알람
   //var is_Checked2 = false;//소리
   //var is_Checked3 = false;//진동
-  var wd = '상단';//dropdown
+  //var wd = '상단';//dropdown
 
   @override
   Widget build(BuildContext context) {

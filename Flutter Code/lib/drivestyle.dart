@@ -30,6 +30,7 @@ class _drivestylePage extends State<drivestylePage> {
   var sound = is_Checked2;
   var vibration = is_Checked3;
   var isPressed = false;
+  var position = wd;
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +107,14 @@ class _drivestylePage extends State<drivestylePage> {
           alignment: Alignment.center,
         ),
         onTap: () {
+          var padding = const EdgeInsets.only(top: 100.0);
+          if(position.compareTo('상단') == 0) {
+            padding = const EdgeInsets.only(top: 100.0);
+          }else if(position.compareTo('중앙') == 0) {
+            padding = const EdgeInsets.only(top: 400.0);
+          }else if(position.compareTo('하단') == 0) {
+            padding = const EdgeInsets.only(top: 750.0);
+          }
 
           if (is_Check == true) {
             showDialog(
@@ -113,23 +122,28 @@ class _drivestylePage extends State<drivestylePage> {
                 //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
                 barrierDismissible: false,
                 builder: (BuildContext context) {
+
                   Future.delayed(Duration(seconds: 3), () {
                     Navigator.pop(context);
                   });
-                  return AlertDialog(
-                    // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    //Dialog Main Title
-                    title: Column(
-                      children: <Widget>[
-                        new Text("급가속 주의"),
-                      ],
-                    ),
-                    //
-                    actions: <Widget>[
-                      
-                    ],
+
+                  return SingleChildScrollView(
+                    child: Padding(
+                      padding: padding,
+                      child: AlertDialog(
+                        // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)
+                        ),
+                        //Dialog Main Title
+                        title: Column(
+                          children: <Widget>[
+                            new Text("급가속 주의"),
+                          ],
+                        ),
+                        actions: <Widget>[],
+                      )
+                    )
                   );
                 });
           }
