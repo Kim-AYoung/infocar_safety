@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'drivestyle.dart';
-
 const PrimaryColor = const Color(0xff030F2A);
 
 void main() {

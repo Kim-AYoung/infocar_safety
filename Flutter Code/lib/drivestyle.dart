@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
+
 import 'alarm_config.dart';
 import 'mainmenu.dart';
+
+AudioCache player = new AudioCache();
 
 class drivestyle extends StatelessWidget {
   @override
@@ -117,6 +121,10 @@ class _drivestylePage extends State<drivestylePage> {
           }
 
           if (is_Check == true) {
+            if(sound == true){
+              player.play('../audio/alert.wav');
+              print("click alert");
+            }
             showDialog(
                 context: context,
                 //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
@@ -139,6 +147,7 @@ class _drivestylePage extends State<drivestylePage> {
                         title: Column(
                           children: <Widget>[
                             new Text("급가속 주의"),
+
                           ],
                         ),
                         actions: <Widget>[],
@@ -146,6 +155,7 @@ class _drivestylePage extends State<drivestylePage> {
                     )
                   );
                 });
+
           }
           ;
         },
