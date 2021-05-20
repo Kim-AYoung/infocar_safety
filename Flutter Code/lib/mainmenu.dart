@@ -10,19 +10,19 @@ void main() {
 class mainmenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
-        title: '차량 스캐너',
-        theme: new ThemeData(
+      title: '차량 스캐너',
+      theme: new ThemeData(
           primaryColor: const Color(0xff030F2A),
           accentColor: const Color(0xff030F2A),
-          canvasColor: const Color(0xff030F2A)
-        ),
-        home: new mainmenuPage(),
+          canvasColor: const Color(0xff030F2A)),
+      home: new mainmenuPage(),
     );
   }
 }
 
 class mainmenuPage extends StatefulWidget {
   mainmenuPage({Key key}) : super(key: key);
+
   @override
   _mainmenuPage createState() => new _mainmenuPage();
 }
@@ -33,7 +33,9 @@ class _mainmenuPage extends State<mainmenuPage> {
     return new Scaffold(
       appBar: AppBar(
         title: Text(
-          '차량 스캐너', style: TextStyle(fontSize: 23.0, color: Colors.white),),
+          '차량 스캐너',
+          style: TextStyle(fontSize: 23.0, color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: PrimaryColor,
       ),
@@ -49,45 +51,46 @@ class _mainmenuPage extends State<mainmenuPage> {
     );
   }
 
-
   Widget makeRow(BuildContext context, {String left, String right}) {
     return Row(
       children: <Widget>[
         Container(
-          child: Center(child:
-                      RaisedButton(
-                      child:Text(left, style: TextStyle(fontSize: 23.0, color: Colors.white),) ,
-                      onPressed: (){
-                        if(left.compareTo('운전스타일')==0) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> drivestyle()));
-                        }
-                      },
-                       color: PrimaryColor,
-                      )
-                      ,
+          child: Center(
+            child: RaisedButton(
+              child: Text(
+                left,
+                style: TextStyle(fontSize: 23.0, color: Colors.white),
+              ),
+              onPressed: () {
+                if (left.compareTo('운전스타일') == 0) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => drivestyle()));
+                }
+              },
+              color: PrimaryColor,
+            ),
           ),
           width: 205,
-          height: 150.8, //150.8
+          height: 150.8,
+          //150.8
           decoration: BoxDecoration(
             color: PrimaryColor,
-            border: Border.all(
-                color: Colors.grey,
-                width: 1.5
-            ),
+            border: Border.all(color: Colors.grey, width: 1.5),
           ),
           margin: EdgeInsets.only(left: 0, right: 0),
         ),
         Container(
-          child: Center(child: Text(right, style: TextStyle(fontSize: 23.0, color: Colors.white),),),
+          child: Center(
+            child: Text(
+              right,
+              style: TextStyle(fontSize: 23.0, color: Colors.white),
+            ),
+          ),
           width: 205,
           height: 150.8,
           decoration: BoxDecoration(
               color: PrimaryColor,
-              border: Border.all(
-                  color: Colors.grey,
-                  width: 1.5
-              )
-          ),
+              border: Border.all(color: Colors.grey, width: 1.5)),
           margin: EdgeInsets.only(left: 0, right: 0),
         ),
       ],
