@@ -1,10 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'alarm_config.dart';
 import 'mainmenu.dart';
 import 'package:vibration/vibration.dart';
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
+import 'dart:convert';
+
+
+class Data {
+  final int status;
+
+  Data(this.status);
+
+  static Data fromJson(Map<String, String> map) {}
+}
 
 class drivestyle extends StatelessWidget {
   @override
@@ -34,10 +45,19 @@ class _drivestylePage extends State<drivestylePage> {
   var vibration = is_Checked3;
   var isPressed = false;
   var position = wd;
+  List<Data> list_data;
+
+  @override
+  void initState() { //json을 받아오기 위한 초기화
+    // TODO: implement initState
+    super.initState();
+    list_data = List();
+
+    readData();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     final AudioCache player = AudioCache();
 
     return new Scaffold(
@@ -114,58 +134,74 @@ class _drivestylePage extends State<drivestylePage> {
         ),
         onTap: () {
           var padding = const EdgeInsets.only(top: 100.0);
-          if(position.compareTo('상단') == 0) {
+          if (position.compareTo('상단') == 0) {
             padding = const EdgeInsets.only(top: 100.0);
-          }else if(position.compareTo('중앙') == 0) {
+          } else if (position.compareTo('중앙') == 0) {
             padding = const EdgeInsets.only(top: 270.0);
-          }else if(position.compareTo('하단') == 0) {
+          } else if (position.compareTo('하단') == 0) {
             padding = const EdgeInsets.only(top: 500.0);
           }
 
           if (is_Check == true) {
-            List<String> caution = ['급가속 주의', '급감속 주의', '급회전 주의'];
-            int random = Random().nextInt(3);
-            if(sound == true){
-              player.play('../audio/alert.wav');
-            }
-            if (vibration == true) {
-              Vibration.vibrate(
-                  duration: 3000,
-                  pattern: [500, 1000, 2000]
-              );
-            }
-            showDialog(
-                context: context,
-                //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-                barrierDismissible: false,
-                builder: (BuildContext context) {
+            for (final item in list_data)
+              if (item.status == 1) {
+                print("급감속 주의-----------------------");
 
-                  Future.delayed(Duration(seconds: 3), () {
-                    Navigator.pop(context);
-                  });
+                //List<String> caution = ['급가속 주의', '급감속 주의', '급회전 주의'];
+                //int random = Random().nextInt(3);
+                if (sound == true) {
+                  player.play('../audio/alert.wav');
+                }
+                if (vibration == true) {
+                  Vibration.vibrate(duration: 3000, pattern: [500, 1000, 2000]);
+                }
+                showDialog(
+                    context: context,
+                    //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      Future.delayed(Duration(seconds: 3), () {
+                        Navigator.pop(context);
+                      });
 
-                  return SingleChildScrollView(
-                      child: Padding(
-                          padding: padding,
-                          child: AlertDialog(
-                            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),
-                            //Dialog Main Title
-                            title: Column(
-                              children: <Widget>[
-                                new Text(caution[random]),
-                              ],
-                            ),
-                            actions: <Widget>[],
-                          )
-                      )
-                  );
-                });
-          };
-        },
+                      return SingleChildScrollView(
+                          child: Padding(
+                              padding: padding,
+                              child: AlertDialog(
+                                // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                //Dialog Main Title
+                                title: Column(
+                                  children: <Widget>[
+                                    new Text("급감속 주의"),
+                                  ],
+                                ),
+                                actions: <Widget>[],
+                              )));
+                    });//show dialog end
+              } //if item.status==1 end
+          }//if is_Check end
+        }, //on tap end
       ),
     );
+  }
+
+  readData() async {
+    await DefaultAssetBundle.of(context)
+        .loadString("assets/result.json")
+        .then((s) {
+      setState(() {
+        var response = json.decode(s);
+        List<dynamic> list_status = response["status"];
+        // List<dynamic> list_english = response['result']['status'];
+
+        for (int i = 0; i < list_status.length; i++) {
+          list_data.add(Data(list_status[i]));
+        }
+      });
+    }).catchError((error) {
+      print(error);
+    });
   }
 }
