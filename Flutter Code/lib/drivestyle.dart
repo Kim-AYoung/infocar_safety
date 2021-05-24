@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'alarm_config.dart';
 import 'mainmenu.dart';
 import 'package:vibration/vibration.dart';
-import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:convert';
 
@@ -109,8 +107,16 @@ class _drivestylePage extends State<drivestylePage> {
                               fontFamily: "Roboto"),
                         ),
                       ),
-                      new FlatButton(
-                          key: null,
+                      new ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:MaterialStateProperty.resolveWith<Color>(
+                                  (Set<MaterialState> states) {
+                                if (states.contains(MaterialState.pressed))
+                                  return Colors.blueAccent;
+                                return null; // Use the component's default.
+                              },
+                            ),
+                          ) ,
                           onPressed: () {
                             Navigator.push(
                                 context,
