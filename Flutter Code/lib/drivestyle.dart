@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'alarm_config.dart';
@@ -6,13 +9,18 @@ import 'package:vibration/vibration.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:convert';
 
-
 class Data {
   final int status;
 
   Data(this.status);
 
   static Data fromJson(Map<String, String> map) {}
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "status: " + status.toString();
+  }
 }
 
 class drivestyle extends StatelessWidget {
@@ -44,20 +52,22 @@ class _drivestylePage extends State<drivestylePage> {
   var isPressed = false;
   var position = wd;
   List<Data> list_data;
+  AudioCache player;
 
   @override
-  void initState() { //json을 받아오기 위한 초기화
+  void initState() {
+    //json을 받아오기 위한 초기화
     // TODO: implement initState
     super.initState();
     list_data = List();
 
     readData();
+    player = AudioCache();
+    //player.play('../audio/alert.wav');
   }
 
   @override
   Widget build(BuildContext context) {
-    final AudioCache player = AudioCache();
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('운전스타일'),
@@ -109,14 +119,15 @@ class _drivestylePage extends State<drivestylePage> {
                       ),
                       new ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor:MaterialStateProperty.resolveWith<Color>(
-                                  (Set<MaterialState> states) {
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
                                 if (states.contains(MaterialState.pressed))
                                   return Colors.blueAccent;
                                 return null; // Use the component's default.
                               },
                             ),
-                          ) ,
+                          ),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -147,26 +158,46 @@ class _drivestylePage extends State<drivestylePage> {
           } else if (position.compareTo('하단') == 0) {
             padding = const EdgeInsets.only(top: 500.0);
           }
+          int countone = 0;
+          List<int> result = [];
 
           if (is_Check == true) {
-            for (final item in list_data)
-              if (item.status == 1) {
-                print("급감속 주의-----------------------");
+            for (int i = 0; i < list_data.length; i++) {
+              if (list_data[i].status == 1) {
+                countone++;
+                if ((i != list_data.length - 1 &&
+                        list_data[i + 1].status != 1) ||
+                    i == list_data.length - 1) {
+                  result.add(countone);
+                  countone = 0;
+                }
+              } else {
+                result.add(0); //0 추가
+
+              }
+            }
+
+            var index = 0;
+            Timer.periodic(Duration(seconds: 2), (timer) {
+              if (index == result.length) {
+                timer.cancel();
+              }
+              int item = result[index++];
+              if (item == 0) {
+                print("item == 0");
+              } else {
+                print(item);
+                //print("급감속 주의-----------------------");
 
                 //List<String> caution = ['급가속 주의', '급감속 주의', '급회전 주의'];
                 //int random = Random().nextInt(3);
-                if (sound == true) {
-                  player.play('../audio/alert.wav');
-                }
-                if (vibration == true) {
-                  Vibration.vibrate(duration: 3000, pattern: [500, 1000, 2000]);
-                }
+
                 showDialog(
                     context: context,
                     //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
                     barrierDismissible: false,
                     builder: (BuildContext context) {
-                      Future.delayed(Duration(seconds: 3), () {
+                      Future.delayed(Duration(seconds: item), () {
                         Navigator.pop(context);
                       });
 
@@ -185,9 +216,17 @@ class _drivestylePage extends State<drivestylePage> {
                                 ),
                                 actions: <Widget>[],
                               )));
-                    });//show dialog end
-              } //if item.status==1 end
-          }//if is_Check end
+                    });
+                if (sound == true) {
+                  player.play('../audio/alert.wav');
+                }
+                if (vibration == true) {
+                  Vibration.vibrate(duration: 1000, pattern: [200, 500, 800]);
+                }
+              } //if (item != 0) end
+              // if you want to stop this loop use cancel
+            });
+          } //if is_Check end
         }, //on tap end
       ),
     );
@@ -200,7 +239,6 @@ class _drivestylePage extends State<drivestylePage> {
       setState(() {
         var response = json.decode(s);
         List<dynamic> list_status = response["status"];
-        // List<dynamic> list_english = response['result']['status'];
 
         for (int i = 0; i < list_status.length; i++) {
           list_data.add(Data(list_status[i]));
