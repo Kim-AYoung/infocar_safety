@@ -52,7 +52,6 @@ class _drivestylePage extends State<drivestylePage> {
   var isPressed = false;
   var position = wd;
   List<Data> list_data;
-  AudioCache player;
 
   @override
   void initState() {
@@ -62,12 +61,14 @@ class _drivestylePage extends State<drivestylePage> {
     list_data = List();
 
     readData();
-    player = AudioCache();
-    //player.play('../audio/alert.wav');
   }
 
   @override
   Widget build(BuildContext context) {
+
+    AudioCache player = AudioCache();
+
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('운전스타일'),
