@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'drivestyle.dart';
 
-var is_Checked = false;//알람
-var is_Checked2 = false;//소리
-var is_Checked3 = false;//진동
-var wd = '상단';//dropdown
+var is_Checked = false; //알람
+var is_Checked2 = false; //소리
+var is_Checked3 = false; //진동
+var wd = '상단'; //dropdown
+
+const SecondColor = const Color(0xff939597);
 
 class alarm_config extends StatelessWidget {
   @override
@@ -12,9 +14,7 @@ class alarm_config extends StatelessWidget {
     return new MaterialApp(
       title: 'Generated App',
       theme: new ThemeData(
-          primaryColor: const Color(0xff030F2A),
-          accentColor: const Color(0xff030F2A),
-          canvasColor: Colors.white),
+          primaryColor: const Color(0xfff5df4d), canvasColor: Colors.white),
       home: new alarm_configPage(),
     );
   }
@@ -28,20 +28,19 @@ class alarm_configPage extends StatefulWidget {
 }
 
 class _alarm_configPage extends State<alarm_configPage> {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        backgroundColor: Color(0xfff5df4d),
         title: new Text(
           '알람 설정',
-          style: new TextStyle(
-            color: Color(0xff939597)
-          ),
+          style: new TextStyle(color: SecondColor),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color:  Color(0xff939597),),
+          icon: Icon(
+            Icons.arrow_back,
+            color: SecondColor,
+          ),
           onPressed: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => drivestyle()));
@@ -61,15 +60,17 @@ class _alarm_configPage extends State<alarm_configPage> {
                     new Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
-                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           new Text(
-                            "알람                      ",
+                            "알람",
                             style: new TextStyle(
                                 fontSize: 20.0,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
+                          ),
+                          SizedBox(
+                            width: 97,
                           ),
                           new Switch(
                             value: is_Checked,
@@ -83,81 +84,97 @@ class _alarm_configPage extends State<alarm_configPage> {
                               });
                             },
                             activeColor: Color(0xfff5df4d),
-                            inactiveTrackColor: Color(0xff939597),
+                            inactiveTrackColor: SecondColor,
                           )
                         ]),
                     new Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
+                          SizedBox(
+                            width: 20,
+                          ),
                           new Text(
-                            "    소리                  ",
+                            "소리",
                             style: new TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
                           ),
+                          SizedBox(
+                            width: 80,
+                          ),
                           new Switch(
-                              value: is_Checked2,
-                              onChanged: (value) {
-                                setState(() {
-                                  is_Checked2 = value;
-                                  if (is_Checked == false) {
-                                    is_Checked2 = false;
-                                  }
-                                });
-                              },
+                            value: is_Checked2,
+                            onChanged: (value) {
+                              setState(() {
+                                is_Checked2 = value;
+                                if (is_Checked == false) {
+                                  is_Checked2 = false;
+                                }
+                              });
+                            },
                             activeColor: Color(0xfff5df4d),
-                            inactiveTrackColor: Color(0xff939597),)
+                            inactiveTrackColor: SecondColor,
+                          )
                         ]),
                     new Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
+                          SizedBox(
+                            width: 20,
+                          ),
                           new Text(
-                            "    진동                  ",
+                            "진동",
                             style: new TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
                           ),
+                          SizedBox(
+                            width: 80,
+                          ),
                           new Switch(
-                              value: is_Checked3,
-                              onChanged: (value) {
-                                setState(() {
-                                  is_Checked3 = value;
-                                  if (is_Checked == false) {
-                                    is_Checked3 = false;
-                                  }
-                                });
-                              },
+                            value: is_Checked3,
+                            onChanged: (value) {
+                              setState(() {
+                                is_Checked3 = value;
+                                if (is_Checked == false) {
+                                  is_Checked3 = false;
+                                }
+                              });
+                            },
                             activeColor: Color(0xfff5df4d),
-                            inactiveTrackColor: Color(0xff939597),)
+                            inactiveTrackColor: SecondColor,
+                          )
                         ]),
-
-                    SizedBox(height: 50,),
+                    SizedBox(
+                      height: 50,
+                    ),
                     Container(
                         height: 1.0,
                         width: 330,
                         color: Colors.grey.withOpacity(0.3)),
-                    SizedBox(height: 20,),
-
+                    SizedBox(
+                      height: 20,
+                    ),
                     new Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           new Text(
-                            "경고 팝업창위치      ",
+                            "경고 팝업창위치",
                             style: new TextStyle(
                                 fontSize: 20.0,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w200,
                                 fontFamily: "Roboto"),
+                          ),
+                          SizedBox(
+                            width: 30,
                           ),
                           new DropdownButton<String>(
                             value: wd,

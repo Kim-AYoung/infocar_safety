@@ -9,12 +9,12 @@ import 'package:vibration/vibration.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:convert';
 
+const SecondColor = const Color(0xff939597);
+
 class Data {
   final int status;
 
   Data(this.status);
-
-  //static Data fromJson(Map<String, String> map) {}
 
   @override
   String toString() {
@@ -29,8 +29,7 @@ class drivestyle extends StatelessWidget {
     return new MaterialApp(
       title: 'Generated App',
       theme: new ThemeData(
-        primaryColor: const Color(0xff030F2A),
-        accentColor: const Color(0xff030F2A),
+        primaryColor: const Color(0xfff5df4d),
         canvasColor: Colors.white,
       ),
       home: new drivestylePage(),
@@ -58,23 +57,25 @@ class _drivestylePage extends State<drivestylePage> {
     //json을 받아오기 위한 초기화
     super.initState();
     list_data = [];
-
     readData();
   }
 
   @override
   Widget build(BuildContext context) {
-
     AudioCache player = AudioCache();
-
 
     return new Scaffold(
       appBar: new AppBar(
-        backgroundColor: Color(0xfff5df4d),
-        title: new Text('운전스타일',style: TextStyle(color: Color(0xff939597)),),
+        title: new Text(
+          '운전스타일',
+          style: TextStyle(color: SecondColor),
+        ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Color(0xff939597),),
+          icon: Icon(
+            Icons.arrow_back,
+            color: SecondColor,
+          ),
           onPressed: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => mainmenu()));
@@ -91,16 +92,16 @@ class _drivestylePage extends State<drivestylePage> {
                 new Card(
                     margin: EdgeInsets.all(20),
                     child: Image.asset('images/images1.jpg')),
-
                 new Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       new CupertinoButton(
-                        color: Color(0xfff5df4d),
+                          color: Color(0xfff5df4d),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -117,7 +118,8 @@ class _drivestylePage extends State<drivestylePage> {
                           )),
                     ]),
                 new Card(
-                    margin: EdgeInsets.all(20),child: Image.asset('images/images2.jpg'))
+                    margin: EdgeInsets.all(20),
+                    child: Image.asset('images/images2.jpg'))
               ]),
           padding: const EdgeInsets.all(0.0),
           alignment: Alignment.center,
@@ -160,11 +162,6 @@ class _drivestylePage extends State<drivestylePage> {
                 print("item == 0");
               } else {
                 print(item);
-                //print("급감속 주의-----------------------");
-
-                //List<String> caution = ['급가속 주의', '급감속 주의', '급회전 주의'];
-                //int random = Random().nextInt(3);
-
                 showDialog(
                     context: context,
                     //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
