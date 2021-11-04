@@ -48,9 +48,9 @@
 
 - 알림을 켠다면 소리, 진동, 팝업창 위치를 설정할 수 있다. 
 
-|<img width="200" height="300" src="">|<img width="200" height="300" src="">|<img width="200" height="400" src="">|
-|:------:|:------:|:------:|
-|메인|운전 스타일|알림 설정|
+|<img width="200" height="400" src="https://user-images.githubusercontent.com/57066971/140322985-f6479b2e-cb03-487f-96cf-f0a172685cbd.jpg">|<img width="200" height="400" src="https://user-images.githubusercontent.com/57066971/140323057-e4c3dacb-ccf6-49e3-b695-a5eec64cc7e9.jpg">|<img width="200" height="400" src="https://user-images.githubusercontent.com/57066971/140323070-3f78237b-8b96-4637-ac05-2bf30f800f2e.jpg">|<img width="200" height="400" src="https://user-images.githubusercontent.com/57066971/140323068-8b37dced-4b33-4031-b51c-9cc2d47e458f.jpg">|
+|:------:|:------:|:------:|:------:|
+|메인|운전 스타일(알림 전)|운전 스타일(알림 후)|알림 설정|
 
 ### [📌 학습 모델 코드](https://github.com/Kim-AYoung/infocar_safety/tree/master/Model%20Code)
 
