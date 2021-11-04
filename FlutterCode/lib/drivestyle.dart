@@ -14,6 +14,7 @@ const SecondColor = const Color(0xff939597);
 
 class Data {
   final int status;
+
   Data(this.status);
 
   @override
@@ -50,14 +51,12 @@ class _drivestylePage extends State<drivestylePage> {
   var vibration = is_Checked3;
   var isPressed = false;
   var position = wd;
-  late List<Data> list_data;
+  late List list_data;
 
   @override
   void initState() {
-    //json을 받아오기 위한 초기화
+    //딥러닝 모델을 불러오고 테스트하기 위한 초기화
     super.initState();
-    list_data = [];
-    // readData();
     loadModel();
   }
 
@@ -136,31 +135,30 @@ class _drivestylePage extends State<drivestylePage> {
           }
           int countone = 0;
           List<int> result = [];
-
           if (is_Check == true) {
             for (int i = 0; i < list_data.length; i++) {
-              if (list_data[i].status == 1) {
+              if (list_data[i][0] as double >= 0.5) {
                 countone++;
                 if ((i != list_data.length - 1 &&
-                        list_data[i + 1].status != 1) ||
+                        list_data[i + 1][0] as double < 0.5) ||
                     i == list_data.length - 1) {
                   result.add(countone);
                   countone = 0;
                 }
               } else {
                 result.add(0); //0 추가
-
               }
             }
 
             var index = 0;
+            print(result);
             Timer.periodic(Duration(seconds: 2), (timer) {
-              if (index == result.length) {
+              if (index == result.length - 1) {
                 timer.cancel();
               }
               int item = result[index++];
               if (item == 0) {
-                print("item == 0");
+                print("0");
               } else {
                 print(item);
                 showDialog(
@@ -201,35 +199,108 @@ class _drivestylePage extends State<drivestylePage> {
     );
   }
 
-  readData() async {
-    await DefaultAssetBundle.of(context)
-        .loadString("assets/result.json")
-        .then((s) {
-      setState(() {
-        var response = json.decode(s);
-        List<dynamic> list_status = response["status"];
-
-        for (int i = 0; i < list_status.length; i++) {
-          list_data.add(Data(list_status[i]));
-        }
-      });
-    }).catchError((error) {
-      print(error);
-    });
-  }
-
   loadModel() async {
-    final _interpreter  = await Interpreter.fromAsset('dnn_model.tflite');
+    final _interpreter = await Interpreter.fromAsset('dnn_model.tflite');
     print('Interpreter loaded successfully');
-
-    List<double> input = [-1.16827509, -7.98785431, -1.42987332, -1.18044525, 1.03052693, -5.38768778]; // car driving data
-    var output = List<double>.filled(1, 0).reshape([1, 1]); // model output
+    // 1 1 1 0 0 0 0 0 0 0
+    List<List<double>> input = [
+      [
+        2.11592874,
+        0.6548619,
+        -1.18250966,
+        -1.36236478,
+        -1.22588138,
+        1.2270723,
+        -0.56461702
+      ],
+      [
+        -0.77719142,
+        0.45228567,
+        0.88334377,
+        0.39206122,
+        0.99439822,
+        0.02162039,
+        0.78304824
+      ],
+      [
+        -1.16123392,
+        -0.73333494,
+        -0.04166523,
+        -0.08028432,
+        -0.2179017,
+        -0.17518809,
+        -0.083308
+      ],
+      [
+        0.22131908,
+        0.34707165,
+        1.00667835,
+        0.59449497,
+        1.4439028,
+        0.3168331,
+        0.97557185
+      ],
+      [
+        -1.16123392,
+        -0.72626833,
+        -0.01083166,
+        -0.2489791,
+        0.24522405,
+        -0.51960293,
+        -0.37209341
+      ],
+      [
+        1.57826924,
+        0.3564938,
+        -1.18250966,
+        -1.36236478,
+        1.0488837,
+        2.16191257,
+        0.97557185
+      ],
+      [
+        -1.16123392,
+        -0.73254976,
+        -0.01083166,
+        -0.14776218,
+        -0.13617359,
+        -0.79021458,
+        2.2269753
+      ],
+      [
+        -1.16123392,
+        -0.70663885,
+        -0.04166523,
+        -0.14776218,
+        -0.49032867,
+        -0.49500187,
+        1.36061906
+      ],
+      [
+        2.09032591,
+        0.67135067,
+        -1.18250966,
+        -1.36236478,
+        -1.22588138,
+        1.17787018,
+        -0.46835521
+      ],
+      [
+        -0.85399992,
+        0.05105909,
+        0.72917563,
+        0.25710541,
+        0.79007795,
+        -0.15058703,
+        -0.85340243
+      ],
+    ]; // car driving data
+    var output = List<double>.filled(input.length, 0)
+        .reshape([input.length, 1]); // model output
 
     _interpreter.run(input, output);
 
     print("load model successfully");
-    print("output: " + output.toString());
+    list_data = output;
   }
 }
-
-
