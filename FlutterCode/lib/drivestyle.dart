@@ -8,12 +8,12 @@ import 'mainmenu.dart';
 import 'package:vibration/vibration.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:convert';
+import 'package:tflite_flutter/tflite_flutter.dart';
 
 const SecondColor = const Color(0xff939597);
 
 class Data {
   final int status;
-
   Data(this.status);
 
   @override
@@ -57,7 +57,8 @@ class _drivestylePage extends State<drivestylePage> {
     //json을 받아오기 위한 초기화
     super.initState();
     list_data = [];
-    readData();
+    // readData();
+    loadModel();
   }
 
   @override
@@ -170,7 +171,6 @@ class _drivestylePage extends State<drivestylePage> {
                       Future.delayed(Duration(seconds: item), () {
                         Navigator.pop(context);
                       });
-
                       return SingleChildScrollView(
                           child: Padding(
                               padding: padding,
@@ -217,4 +217,19 @@ class _drivestylePage extends State<drivestylePage> {
       print(error);
     });
   }
+
+  loadModel() async {
+    final _interpreter  = await Interpreter.fromAsset('dnn_model.tflite');
+    print('Interpreter loaded successfully');
+
+    List<double> input = [-1.16827509, -7.98785431, -1.42987332, -1.18044525, 1.03052693, -5.38768778]; // car driving data
+    var output = List<double>.filled(1, 0).reshape([1, 1]); // model output
+
+    _interpreter.run(input, output);
+
+    print("load model successfully");
+    print("output: " + output.toString());
+  }
 }
+
+
