@@ -48,5 +48,9 @@
 
 - 알림을 켠다면 소리, 진동, 팝업창 위치를 설정할 수 있다. 
 
+|<img width="200" height="300" src="">|<img width="200" height="300" src="">|<img width="200" height="400" src="">|
+|:------:|:------:|:------:|
+|메인|운전 스타일|알림 설정|
+
 ### [📌 학습 모델 코드](https://github.com/Kim-AYoung/infocar_safety/tree/master/Model%20Code)
 
